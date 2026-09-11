@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}Attendance System{% endblock %}
+    </title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script
+        src="https://unpkg.com/lucide@latest">
+    </script>
+
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="w-64 bg-slate-900 text-white hidden md:block"
+    >
+
+        <div class="p-6">
+
+            <h1 class="text-xl font-bold">
+                🎓 Attendance
+            </h1>
+
+            <p class="text-gray-400 text-sm">
+                School Management
+            </p>
+
+        </div>
+
+        <nav class="px-4 space-y-2">
+
+            <a
+                href="/dashboard"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800"
+            >
+                📊 Dashboard
+            </a>
+
+            <a
+                href="/students"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800"
+            >
+                👨‍🎓 Students
+            </a>
+
+            <a
+                href="/attendance"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800"
+            >
+                📝 Attendance
+            </a>
+
+            <a
+                href="/history"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800"
+            >
+                📅 History
+            </a>
+
+            <a
+                href="/reports"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800"
+            >
+                📈 Reports
+            </a>
+
+            <a
+                href="/logout"
+                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 mt-10"
+            >
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="flex-1">
+
+        <!-- TOP BAR -->
+
+        <header
+            class="bg-white shadow-sm px-6 py-4 flex justify-between items-center"
+        >
+
+            <h2 class="font-semibold text-gray-700">
+
+                {% block page_title %}
+                Dashboard
+                {% endblock %}
+
+            </h2>
+
+            <div class="flex items-center gap-3">
+
+                <div
+                    class="w-9 h-9 bg-indigo-600 text-white rounded-full flex items-center justify-center"
+                >
+                    {{ username[0]|upper }}
+                </div>
+
+                <span class="hidden sm:block">
+                    {{ username }}
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="p-6">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+    lucide.createIcons();
+</script>
+
+</body>
+</html>

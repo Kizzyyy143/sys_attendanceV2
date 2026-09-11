@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reports
+{% endblock %}
+
+{% block page_title %}
+Attendance Reports
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-6">
+Attendance Statistics
+</h1>
+
+
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<p class="text-gray-500">
+Total Records
+</p>
+
+<h2 class="text-4xl font-bold mt-2">
+{{ total }}
+</h2>
+
+</div>
+
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<p class="text-gray-500">
+Present
+</p>
+
+<h2 class="text-4xl font-bold mt-2 text-green-600">
+{{ present }}
+</h2>
+
+</div>
+
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<p class="text-gray-500">
+Absent
+</p>
+
+<h2 class="text-4xl font-bold mt-2 text-red-600">
+{{ absent }}
+</h2>
+
+</div>
+
+
+<div class="bg-white rounded-xl shadow p-6">
+
+<p class="text-gray-500">
+Late
+</p>
+
+<h2 class="text-4xl font-bold mt-2 text-yellow-600">
+{{ late }}
+</h2>
+
+</div>
+
+
+</div>
+
+
+<div class="bg-white rounded-xl shadow p-6 mt-6">
+
+<h2 class="text-xl font-bold mb-5">
+Attendance Summary
+</h2>
+
+<div class="space-y-5">
+
+
+<div>
+
+<div class="flex justify-between mb-2">
+
+<span>Present</span>
+
+<span>
+{{ present }}
+</span>
+
+</div>
+
+<progress
+    class="w-full h-3 overflow-hidden rounded-full accent-green-500"
+    value="{{ present }}"
+    max="{{ total or 1 }}"
+></progress>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="flex justify-between mb-2">
+
+<span>Absent</span>
+
+<span>
+{{ absent }}
+</span>
+
+</div>
+
+<progress
+    class="w-full h-3 overflow-hidden rounded-full accent-red-500"
+    value="{{ absent }}"
+    max="{{ total or 1 }}"
+></progress>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="flex justify-between mb-2">
+
+<span>Late</span>
+
+<span>
+{{ late }}
+</span>
+
+</div>
+
+<progress
+    class="w-full h-3 overflow-hidden rounded-full accent-yellow-500"
+    value="{{ late }}"
+    max="{{ total or 1 }}"
+></progress>
+
+</div>
+
+</div>
+
+
+<div>
+
+<div class="flex justify-between mb-2">
+
+<span>Leave</span>
+
+<span>
+{{ leave }}
+</span>
+
+</div>
+
+<progress
+    class="w-full h-3 overflow-hidden rounded-full accent-blue-500"
+    value="{{ leave }}"
+    max="{{ total or 1 }}"
+></progress>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+{% endblock %}

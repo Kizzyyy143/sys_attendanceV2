@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}
+Take Attendance
+{% endblock %}
+
+{% block page_title %}
+Take Attendance
+{% endblock %}
+
+
+{% block content %}
+
+<div class="flex justify-between items-center mb-6">
+
+<div>
+
+<h1 class="text-2xl font-bold">
+Take Attendance
+</h1>
+
+<p class="text-gray-500">
+{{ today }}
+</p>
+
+</div>
+
+</div>
+
+
+<form method="post" action="/attendance">
+
+<div class="bg-white rounded-xl shadow overflow-x-auto">
+
+<table class="w-full">
+
+<thead class="bg-gray-50">
+
+<tr>
+
+<th class="text-left px-6 py-4">
+#
+</th>
+
+<th class="text-left px-6 py-4">
+Student ID
+</th>
+
+<th class="text-left px-6 py-4">
+Student Name
+</th>
+
+<th class="text-left px-6 py-4">
+Class
+</th>
+
+<th class="text-left px-6 py-4">
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody class="divide-y">
+
+{% for student in students %}
+
+<tr>
+
+<td class="px-6 py-4">
+{{ loop.index }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.student_id }}
+</td>
+
+<td class="px-6 py-4 font-medium">
+{{ student.name }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.class_name }}
+</td>
+
+<td class="px-6 py-4">
+
+<select
+    name="status_{{ student.id }}"
+    aria-label="Attendance status for {{ student.name }}"
+    class="border rounded-lg px-4 py-2"
+>
+
+<option
+    value="Present"
+    {% if attendance_map.get(student.id) == "Present" %}
+    selected
+    {% endif %}
+>
+Present
+</option>
+
+<option
+    value="Absent"
+    {% if attendance_map.get(student.id) == "Absent" %}
+    selected
+    {% endif %}
+>
+Absent
+</option>
+
+<option
+    value="Late"
+    {% if attendance_map.get(student.id) == "Late" %}
+    selected
+    {% endif %}
+>
+Late
+</option>
+
+<option
+    value="Leave"
+    {% if attendance_map.get(student.id) == "Leave" %}
+    selected
+    {% endif %}
+>
+Leave
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td colspan="5"
+    class="text-center py-10 text-gray-500">
+
+No students available.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+
+{% if students %}
+
+<div class="flex justify-end mt-5">
+
+<button
+    type="submit"
+    class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold"
+>
+    Save Attendance
+</button>
+
+</div>
+
+{% endif %}
+
+</form>
+
+{% endblock %}

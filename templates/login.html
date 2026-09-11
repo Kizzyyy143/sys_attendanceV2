@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - Attendance System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="min-h-screen bg-slate-900 flex items-center justify-center">
+
+<div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 mx-4">
+
+    <div class="text-center mb-8">
+
+        <div
+            class="mx-auto w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center text-3xl"
+        >
+            🎓
+        </div>
+
+        <h1 class="text-2xl font-bold mt-4">
+            School Attendance
+        </h1>
+
+        <p class="text-gray-500">
+            Login to your account
+        </p>
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-5">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="post" action="/login">
+
+        <label class="block mb-2 font-medium">
+            Username
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            required
+            class="w-full border rounded-lg px-4 py-3 mb-5 focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Enter username"
+        >
+
+
+        <label class="block mb-2 font-medium">
+            Password
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            required
+            class="w-full border rounded-lg px-4 py-3 mb-6 focus:ring-2 focus:ring-indigo-500 outline-none"
+            placeholder="Enter password"
+        >
+
+
+        <button
+            type="submit"
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold"
+        >
+            Login
+        </button>
+
+    </form>
+
+
+    <div class="text-center mt-6 text-sm text-gray-500">
+
+        Default Login
+
+        <br>
+
+        <b>admin</b> / <b>admin123</b>
+
+    </div>
+
+</div>
+
+</body>
+</html>

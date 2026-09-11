@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}
+Students
+{% endblock %}
+
+{% block page_title %}
+Student Management
+{% endblock %}
+
+
+{% block content %}
+
+<div class="flex flex-col md:flex-row md:justify-between gap-4 mb-6">
+
+    <div>
+
+        <h1 class="text-2xl font-bold">
+            Students
+        </h1>
+
+        <p class="text-gray-500">
+            Manage all students
+        </p>
+
+    </div>
+
+
+    <a
+        href="/students/add"
+        class="bg-indigo-600 text-white px-5 py-3 rounded-lg hover:bg-indigo-700 text-center"
+    >
+        + Add Student
+    </a>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<form
+    method="get"
+    action="/students"
+    class="bg-white p-4 rounded-xl shadow mb-6"
+>
+
+    <div class="flex gap-3">
+
+        <input
+            type="text"
+            name="search"
+            value="{{ search }}"
+            placeholder="Search student..."
+            class="flex-1 border rounded-lg px-4 py-3"
+        >
+
+        <button
+            type="submit"
+            class="bg-gray-800 text-white px-6 rounded-lg"
+        >
+            Search
+        </button>
+
+    </div>
+
+</form>
+
+
+<!-- TABLE -->
+
+<div class="bg-white rounded-xl shadow overflow-x-auto">
+
+<table class="w-full">
+
+<thead class="bg-gray-50">
+
+<tr>
+
+<th class="text-left px-6 py-4">
+#
+</th>
+
+<th class="text-left px-6 py-4">
+Student ID
+</th>
+
+<th class="text-left px-6 py-4">
+Name
+</th>
+
+<th class="text-left px-6 py-4">
+Gender
+</th>
+
+<th class="text-left px-6 py-4">
+Phone
+</th>
+
+<th class="text-left px-6 py-4">
+Class
+</th>
+
+<th class="text-left px-6 py-4">
+Action
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody class="divide-y">
+
+{% for student in students %}
+
+<tr class="hover:bg-gray-50">
+
+<td class="px-6 py-4">
+{{ loop.index }}
+</td>
+
+<td class="px-6 py-4 font-medium">
+{{ student.student_id }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.name }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.gender }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.phone }}
+</td>
+
+<td class="px-6 py-4">
+{{ student.class_name }}
+</td>
+
+<td class="px-6 py-4">
+
+<a
+    href="/students/delete/{{ student.id }}"
+    onclick="return confirm('Delete this student?')"
+    class="text-red-600 hover:text-red-800"
+>
+    Delete
+</a>
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td
+    colspan="7"
+    class="text-center py-10 text-gray-500"
+>
+    No students found.
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

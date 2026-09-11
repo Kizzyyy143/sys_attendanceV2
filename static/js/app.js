@@ -1,0 +1,1 @@
+console.log("Attendance System loaded");

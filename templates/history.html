@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}
+Attendance History
+{% endblock %}
+
+{% block page_title %}
+Attendance History
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-5">
+Attendance History
+</h1>
+
+
+<form
+    method="get"
+    action="/history"
+    class="bg-white p-5 rounded-xl shadow mb-6 flex flex-wrap gap-3"
+>
+
+<label for="selected-date" class="sr-only">Select date</label>
+
+<input
+    type="date"
+    id="selected-date"
+    name="selected_date"
+    value="{{ selected_date }}"
+    class="border rounded-lg px-4 py-3"
+>
+
+<button
+    type="submit"
+    class="bg-indigo-600 text-white px-6 rounded-lg"
+>
+    Filter
+</button>
+
+</form>
+
+
+<div class="bg-white rounded-xl shadow overflow-x-auto">
+
+<table class="w-full">
+
+<thead class="bg-gray-50">
+
+<tr>
+
+<th class="text-left px-6 py-4">
+Student
+</th>
+
+<th class="text-left px-6 py-4">
+Student ID
+</th>
+
+<th class="text-left px-6 py-4">
+Date
+</th>
+
+<th class="text-left px-6 py-4">
+Check In
+</th>
+
+<th class="text-left px-6 py-4">
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody class="divide-y">
+
+{% for record in records %}
+
+<tr>
+
+<td class="px-6 py-4">
+{{ record.student.name }}
+</td>
+
+<td class="px-6 py-4">
+{{ record.student.student_id }}
+</td>
+
+<td class="px-6 py-4">
+{{ record.date }}
+</td>
+
+<td class="px-6 py-4">
+{{ record.check_in or "-" }}
+</td>
+
+<td class="px-6 py-4">
+
+{% if record.status == "Present" %}
+
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+Present
+</span>
+
+{% elif record.status == "Absent" %}
+
+<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
+Absent
+</span>
+
+{% elif record.status == "Late" %}
+
+<span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">
+Late
+</span>
+
+{% else %}
+
+<span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+Leave
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% else %}
+
+<tr>
+
+<td
+    colspan="5"
+    class="text-center py-10 text-gray-500"
+>
+No attendance records.
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}
