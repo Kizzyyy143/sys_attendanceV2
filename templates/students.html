@@ -1,176 +1,97 @@
 {% extends "base.html" %}
 
-{% block title %}
-Students
-{% endblock %}
-
-{% block page_title %}
-Student Management
-{% endblock %}
-
+{% block title %}Students{% endblock %}
+{% block page_title %}Students{% endblock %}
 
 {% block content %}
 
-<div class="flex flex-col md:flex-row md:justify-between gap-4 mb-6">
+<div class="flex justify-between items-center mb-6 flex-wrap gap-4">
 
     <div>
-
-        <h1 class="text-2xl font-bold">
-            Students
+        <h1 class="text-2xl font-bold text-gray-800">
+            បញ្ជីឈ្មោះសិស្ស (Student List)
         </h1>
-
-        <p class="text-gray-500">
-            Manage all students
+        <p class="text-gray-500 text-sm">
+            គ្រប់គ្រងព័ត៌មានសិស្សទាំងអស់
         </p>
-
     </div>
 
-
-    <a
-        href="/students/add"
-        class="bg-indigo-600 text-white px-5 py-3 rounded-lg hover:bg-indigo-700 text-center"
-    >
-        + Add Student
+    <a href="/students/add"
+       class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-lg font-medium transition">
+        + បន្ថែមសិស្សថ្មី
     </a>
 
 </div>
 
 
-<!-- SEARCH -->
+<!-- Search -->
+<form method="get" action="/students"
+      class="bg-white p-4 rounded-xl shadow mb-6 flex flex-wrap gap-3">
 
-<form
-    method="get"
-    action="/students"
-    class="bg-white p-4 rounded-xl shadow mb-6"
->
+    <input
+        type="text"
+        name="search"
+        placeholder="ស្វែងរកតាម ឈ្មោះ ឬ អត្តលេខ..."
+        value="{{ search }}"
+        class="flex-1 min-w-[250px] border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+    >
 
-    <div class="flex gap-3">
-
-        <input
-            type="text"
-            name="search"
-            value="{{ search }}"
-            placeholder="Search student..."
-            class="flex-1 border rounded-lg px-4 py-3"
-        >
-
-        <button
-            type="submit"
-            class="bg-gray-800 text-white px-6 rounded-lg"
-        >
-            Search
-        </button>
-
-    </div>
+    <button type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition">
+        Search
+    </button>
 
 </form>
 
 
-<!-- TABLE -->
-
+<!-- Table -->
 <div class="bg-white rounded-xl shadow overflow-x-auto">
 
-<table class="w-full">
+    <table class="w-full">
 
-<thead class="bg-gray-50">
+        <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">អត្តលេខ (ID)</th>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">ឈ្មោះ (Name)</th>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">ភេទ (Gender)</th>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">ថ្នាក់រៀន (Class)</th>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">លេខទូរស័ព្ទ (Phone)</th>
+                <th class="text-left px-6 py-4 font-semibold text-gray-600">សកម្មភាព (Actions)</th>
+            </tr>
+        </thead>
 
-<tr>
+        <tbody class="divide-y">
 
-<th class="text-left px-6 py-4">
-#
-</th>
+            {% for student in students %}
+            <tr class="hover:bg-slate-50 transition">
+                <td class="px-6 py-4">{{ student.student_id }}</td>
+                <td class="px-6 py-4 font-medium">{{ student.name }}</td>
+                <td class="px-6 py-4">{{ student.gender }}</td>
+                <td class="px-6 py-4">{{ student.class_name }}</td>
+                <td class="px-6 py-4">{{ student.phone }}</td>
+                <td class="px-6 py-4 space-x-2">
+                    <a href="/students/edit/{{ student.id }}"
+                       class="text-indigo-600 hover:text-indigo-800 font-medium">
+                        Edit
+                    </a>
+                    <a href="/students/delete/{{ student.id }}"
+                       onclick="return confirm('តើអ្នកប្រាកដជាចង់លុបសិស្សនេះមែនទេ?');"
+                       class="text-red-600 hover:text-red-800 font-medium">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center py-10 text-gray-500">
+                    មិនមានទិន្នន័យសិស្សទេ
+                </td>
+            </tr>
+            {% endfor %}
 
-<th class="text-left px-6 py-4">
-Student ID
-</th>
+        </tbody>
 
-<th class="text-left px-6 py-4">
-Name
-</th>
-
-<th class="text-left px-6 py-4">
-Gender
-</th>
-
-<th class="text-left px-6 py-4">
-Phone
-</th>
-
-<th class="text-left px-6 py-4">
-Class
-</th>
-
-<th class="text-left px-6 py-4">
-Action
-</th>
-
-</tr>
-
-</thead>
-
-
-<tbody class="divide-y">
-
-{% for student in students %}
-
-<tr class="hover:bg-gray-50">
-
-<td class="px-6 py-4">
-{{ loop.index }}
-</td>
-
-<td class="px-6 py-4 font-medium">
-{{ student.student_id }}
-</td>
-
-<td class="px-6 py-4">
-{{ student.name }}
-</td>
-
-<td class="px-6 py-4">
-{{ student.gender }}
-</td>
-
-<td class="px-6 py-4">
-{{ student.phone }}
-</td>
-
-<td class="px-6 py-4">
-{{ student.class_name }}
-</td>
-
-<td class="px-6 py-4">
-
-<a
-    href="/students/delete/{{ student.id }}"
-    onclick="return confirm('Delete this student?')"
-    class="text-red-600 hover:text-red-800"
->
-    Delete
-</a>
-
-</td>
-
-</tr>
-
-{% else %}
-
-<tr>
-
-<td
-    colspan="7"
-    class="text-center py-10 text-gray-500"
->
-    No students found.
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
+    </table>
 
 </div>
 
